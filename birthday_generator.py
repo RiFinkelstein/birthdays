@@ -1,4 +1,5 @@
 import json
+import datetime
 
 # Load the birthday dictionary from the JSON file
 with open('birthdays.json', 'r') as f:
@@ -6,9 +7,8 @@ with open('birthdays.json', 'r') as f:
 
 while True:
     # Ask the user to enter a name
-    option = input("Enter an option: 's' to search for a birthday, 'a' to add a birthday, 'e' to edit a birthday, or 'q' to quit: ")
+    option = input("Enter an option: 's' to search for a birthday, 'a' to add a birthday, 'e' to edit a birthday, 'd' to delete a birthday, or 'q' to quit: ")
 
-    # Check if the user wants to quit
     # Check if the user wants to quit
     if option == 'q':
         break
@@ -47,6 +47,16 @@ while True:
             birthdays[name] = birthday
             print(f"{name}'s birthday has been updated in the database.")
 
+            # Update the JSON file with the new dictionary
+            with open('birthdays.json', 'w') as f:
+                json.dump(birthdays, f)
+        else:
+            print(f"Sorry, we don't have {name}'s birthday in our database.")
+    elif option == 'd':
+        name = input("Enter a name: ")
+        if name in birthdays:
+            del birthdays[name]
+            print(f"{name}'s birthday has been deleted from the database.")
             # Update the JSON file with the new dictionary
             with open('birthdays.json', 'w') as f:
                 json.dump(birthdays, f)
