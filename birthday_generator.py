@@ -7,7 +7,7 @@ with open('birthdays.json', 'r') as f:
 
 while True:
     # Ask the user to enter a name
-    option = input("Enter an option: 's' to search for a birthday, 'a' to add a birthday, 'e' to edit a birthday, 'd' to delete a birthday, or 'q' to quit: ")
+    option = input("Enter an option: 's' to search for a birthday, 'a' to add a birthday, 'e' to edit a birthday, 'd' to delete a birthday, 'l' to list all birthdays in database or 'q' to quit: ")
 
     # Check if the user wants to quit
     if option == 'q':
@@ -62,6 +62,10 @@ while True:
                 json.dump(birthdays, f)
         else:
             print(f"Sorry, we don't have {name}'s birthday in our database.")
+    
+    elif option == 'l':
+        for name in birthdays:
+            print(f"{name}'s birthday is {birthdays[name]}")
 
     # Invalid option
     else:
