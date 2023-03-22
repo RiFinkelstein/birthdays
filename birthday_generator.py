@@ -21,12 +21,20 @@ while True:
 
         if name in birthdays:
             print(f"{name}'s birthday is {birthdays[name]}")
+            bday_str = birthdays[name]
+            bday_date = datetime.datetime.strptime(bday_str, '%m/%d/%Y').date()
+            age = (datetime.date.today() - bday_date) // datetime.timedelta(days=365)
+            # Print the birthday and age
+            print(f"{name}'s birthday is {bday_str}. They are {age} years old.")
         else:
             print(f"Sorry, we don't have {name}'s birthday in our database.")
             # Ask the user to enter the birthday and add it to the dictionary
             birthday = input(f"What is {name}'s birthday (MM/DD/YYYY)? ")
             birthdays[name] = birthday
             print(f"{name}'s birthday has been added to the database.")
+            # Update the JSON file with the new dictionary
+            with open('birthdays.json', 'w') as f:
+                json.dump(birthdays, f)
     
     elif option == 'a':
         #ask the user to enter a name
