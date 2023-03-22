@@ -1,5 +1,7 @@
 import json
 import datetime
+from dateutil.parser import parse
+
 
 # Load the birthday dictionary from the JSON file
 with open('birthdays.json', 'r') as f:
@@ -20,10 +22,11 @@ while True:
         name = input("Enter a name: ")
 
         if name in birthdays:
-            print(f"{name}'s birthday is {birthdays[name]}")
             bday_str = birthdays[name]
-            bday_date = datetime.datetime.strptime(bday_str, '%m/%d/%Y').date()
-            age = (datetime.date.today() - bday_date) // datetime.timedelta(days=365)
+            bday_date = parse(bday_str).date()
+            today = datetime.date.today()
+            age = (today - bday_date) // datetime.timedelta(days=365)
+
             # Print the birthday and age
             print(f"{name}'s birthday is {bday_str}. They are {age} years old.")
         else:
